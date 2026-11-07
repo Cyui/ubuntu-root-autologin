@@ -27,8 +27,7 @@ A Bash setup script for a **dedicated Ubuntu 24.04 GNOME lab/test machine**, tes
 ## Run
 
 ```bash
-chmod +x setup-root-lab.sh
-sudo ./setup-root-lab.sh
+sudo bash ./setup-root-lab.sh
 ```
 
 Confirm the warning with `y` and enter the new root password when prompted.

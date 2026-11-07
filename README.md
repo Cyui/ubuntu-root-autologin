@@ -1,15 +1,19 @@
-# Ubuntu Root Autologin (Ubuntu 26.04)
+# Ubuntu Root Autologin (Ubuntu 24.04)
 
-A Bash setup script for a **dedicated Ubuntu 26.04 GNOME lab/test machine**. It configures direct root access for a controlled lab environment.
+A Bash setup script for a **dedicated Ubuntu 24.04 GNOME lab/test machine**, tested and working on Ubuntu 24.04. It configures direct root access for a controlled lab environment.
 
 > [!WARNING]
 > **Security is deliberately reduced.** This script disables PAM password-quality checks for all users, permits weak passwords, enables SSH password login as `root`, and configures GDM to automatically log in to the root GNOME session. Run it only on a trusted, isolated lab machine, never on an Internet-exposed or shared workstation.
 
 ## Supported OS
 
-- **Ubuntu 26.04** with GNOME and GDM3 installed.
+- **Ubuntu 24.04** with GNOME and GDM3 installed: tested and working; the primary target for this script.
+- **Ubuntu 26.04**: also tested, but has the Nautilus limitation described below.
 - Requires root privileges and an interactive terminal.
-- The script checks `/etc/os-release`; other Ubuntu releases cause a warning and are not validated.
+- The script checks `/etc/os-release`; releases other than 24.04 and 26.04 cause a warning and have not been validated.
+
+> [!WARNING]
+> **Ubuntu 26.04: Nautilus cannot run as root.** Testing found that, after entering the root GNOME desktop, the Nautilus file manager refuses to launch because it prohibits running as root. This script does not bypass that restriction. Use Ubuntu 24.04 for the tested, working setup.
 
 ## What the script does
 
@@ -45,7 +49,7 @@ Confirm the warning with `y` and enter the new root password when prompted.
 ## Notes
 
 - Running the script again prompts to set the root password again and creates another backup directory.
-- The script is intended for Ubuntu 26.04 lab configurations; custom PAM, SSH, or display-manager configurations may need manual review.
+- The script primarily targets Ubuntu 24.04 lab configurations; Ubuntu 26.04 has the Nautilus limitation noted above. Custom PAM, SSH, or display-manager configurations may need manual review.
 - The script does not configure a firewall or disable system service accounts.
 - Keep a working local console/root SSH session available while changing login authentication.
 

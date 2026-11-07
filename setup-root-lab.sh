@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Ubuntu 26.04 GNOME lab machine: root password, GDM root autologin, SSH root password login.
+# Ubuntu 24.04 GNOME lab machine: root password, GDM root autologin, SSH root password login.
+# Also tested on Ubuntu 26.04, where Nautilus refuses to run as root.
 set -Eeuo pipefail
 
 if (( EUID != 0 )); then
@@ -16,8 +17,10 @@ if [[ "${ID:-}" != ubuntu ]]; then
     echo "ERROR: This script targets Ubuntu (detected: ${ID:-unknown})." >&2
     exit 1
 fi
-if [[ "${VERSION_ID:-}" != '26.04' ]]; then
-    echo "WARNING: Tested for Ubuntu 26.04; detected ${VERSION_ID:-unknown}." >&2
+if [[ "${VERSION_ID:-}" == '26.04' ]]; then
+    echo 'WARNING: Ubuntu 26.04 Nautilus refuses to run as root, so the file manager cannot open in the root GNOME session. This script does not bypass that restriction. Ubuntu 24.04 is tested and working.' >&2
+elif [[ "${VERSION_ID:-}" != '24.04' ]]; then
+    echo "WARNING: Primarily tested for Ubuntu 24.04; also tested on 26.04 with a known Nautilus limitation. Detected ${VERSION_ID:-unknown} has not been validated." >&2
 fi
 
 if [[ ! -f /etc/gdm3/custom.conf || ! -f /etc/pam.d/gdm-autologin ]]; then
